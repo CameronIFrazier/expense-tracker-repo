@@ -20,7 +20,7 @@ function App() {
   useEffect(() => {
     const fetchExpenses = async () => {
       try {
-        const response = await fetch("http://localhost:3001/api/expenses");
+        const response = await fetch("https://expense-tracker-repo-production.up.railway.app/api/expenses");
         const data = await response.json();
         setExpenses(data);
       } catch (err) {
@@ -55,9 +55,9 @@ function App() {
     const confirmClear = window.confirm("Are you sure you want to clear all expenses?");
     if (!confirmClear) return;
     try {
-      const response = await fetch("http://localhost:3001/api/expenses/clear", { method: "DELETE" });
+      const response = await fetch("https://expense-tracker-repo-production.up.railway.app/api/expenses/clear", { method: "DELETE" });
       if (!response.ok) throw new Error("Failed to clear expenses table");
-      const updatedResponse = await fetch("http://localhost:3001/api/expenses");
+      const updatedResponse = await fetch("https://expense-tracker-repo-production.up.railway.app/api/expenses");
       const updatedData = await updatedResponse.json();
       setExpenses(updatedData);
     } catch (err) {
@@ -72,7 +72,7 @@ function App() {
       return;
     }
     try {
-      const response = await fetch("http://localhost:3001/api/expenses", {
+      const response = await fetch("https://expense-tracker-repo-production.up.railway.app/api/expenses", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, amount, date, notes }),
@@ -80,7 +80,7 @@ function App() {
       await response.json();
       setName(""); setAmount(""); setDate(""); setnotes("One Time Payment");
       setreoccuringExpenseDetails(false);
-      const updatedResponse = await fetch("http://localhost:3001/api/expenses");
+      const updatedResponse = await fetch("https://expense-tracker-repo-production.up.railway.app/api/expenses");
       const updatedData = await updatedResponse.json();
       setExpenses(updatedData);
     } catch (err) {
