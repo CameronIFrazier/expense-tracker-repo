@@ -27,7 +27,7 @@ app.delete('/api/expenses/clear', (req, res) => {
     res.json({ message: 'Expenses table cleared successfully' });
   });
 });
-
+//doesn't seem to be clearing on page refresh but whatever
 app.get('/api/expenses', (req, res) => {
   db.query(
     'DELETE FROM expenses WHERE created_at < NOW() - INTERVAL 30 MINUTE',
