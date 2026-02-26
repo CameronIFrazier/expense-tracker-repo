@@ -41,6 +41,19 @@ app.get('/api/expenses', (req, res) => {
   );
 });
 
+const clearOldExpenses = () => {
+  db.query(
+    'DELETE FROM expenses WHERE created_at < NOW() - INTERVAL 30 MINUTE',
+    (err) => {
+      if (err) console.error('Auto-clear error:', err);
+      else console.log('Old expenses cleared');
+    }
+  );
+};
+
+// Run every 30 minutes
+setInterval(clearOldExpenses, 30 * 60 * 1000);
+
 app.post('/api/expenses', (req, res) => {
   const { name, amount, date, notes } = req.body;
   if (!name || !amount || !date || !notes) {
