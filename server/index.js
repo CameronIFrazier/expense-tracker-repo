@@ -29,12 +29,11 @@ app.delete('/api/expenses/clear', (req, res) => {
 });
 
 app.get('/api/expenses', (req, res) => {
-  db.query('TRUNCATE TABLE expenses', (err) => {
+  db.query('SELECT * FROM expenses', (err, results) => {
     if (err) return res.status(500).json({ error: 'Database error' });
-    res.json([]);
+    res.json(results);
   });
 });
-
 
 app.post('/api/expenses', (req, res) => {
   const { name, amount, date, notes } = req.body;
