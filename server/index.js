@@ -29,16 +29,10 @@ app.delete('/api/expenses/clear', (req, res) => {
 });
 
 app.get('/api/expenses', (req, res) => {
-  db.query(
-    'DELETE FROM expenses WHERE created_at < NOW() - INTERVAL 30 MINUTE',
-    (err) => {
-      if (err) console.error('Auto-clear error:', err);
-      db.query('SELECT * FROM expenses', (err, results) => {
-        if (err) return res.status(500).json({ error: 'Database error' });
-        res.json(results);
-      });
-    }
-  );
+  db.query('TRUNCATE TABLE expenses', (err) => {
+    if (err) return res.status(500).json({ error: 'Database error' });
+    res.json([]);
+  });
 });
 
 
