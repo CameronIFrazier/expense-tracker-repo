@@ -22,9 +22,10 @@ function App() {
       try {
         const response = await fetch("https://expense-tracker-repo-production.up.railway.app/api/expenses");
         const data = await response.json();
-        setExpenses(data);
+         setExpenses(Array.isArray(data) ? data : []); 
       } catch (err) {
         console.error("Error fetching expenses:", err);
+         setExpenses([]);
       }
     };
     fetchExpenses();
